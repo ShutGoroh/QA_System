@@ -1,0 +1,547 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ModelQA.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ModelQAStoreContainer">
+    <EntitySet Name="UserDatas" EntityType="ModelQA.Store.UserDatas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SystemCollections" EntityType="ModelQA.Store.SystemCollections" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserSystems" EntityType="ModelQA.Store.UserSystems" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserQuestions" EntityType="ModelQA.Store.UserQuestions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="GroupDemands" EntityType="ModelQA.Store.GroupDemands" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TypeDemands" EntityType="ModelQA.Store.TypeDemands" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DemandDescriptions" EntityType="ModelQA.Store.DemandDescriptions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="GlossarySystems" EntityType="ModelQA.Store.GlossarySystems" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="SystemCollectionUserSystems" Association="ModelQA.Store.SystemCollectionUserSystems">
+      <End Role="SystemCollection" EntitySet="SystemCollections" />
+      <End Role="UserSystems" EntitySet="UserSystems" />
+    </AssociationSet>
+    <AssociationSet Name="UserDataUserSystems" Association="ModelQA.Store.UserDataUserSystems">
+      <End Role="UserData" EntitySet="UserDatas" />
+      <End Role="UserSystems" EntitySet="UserSystems" />
+    </AssociationSet>
+    <AssociationSet Name="UserSystemsUserQuestions" Association="ModelQA.Store.UserSystemsUserQuestions">
+      <End Role="UserSystems" EntitySet="UserSystems" />
+      <End Role="UserQuestions" EntitySet="UserQuestions" />
+    </AssociationSet>
+    <AssociationSet Name="SystemCollectionGroupDemand" Association="ModelQA.Store.SystemCollectionGroupDemand">
+      <End Role="SystemCollection" EntitySet="SystemCollections" />
+      <End Role="GroupDemand" EntitySet="GroupDemands" />
+    </AssociationSet>
+    <AssociationSet Name="GroupDemandTypeDemand" Association="ModelQA.Store.GroupDemandTypeDemand">
+      <End Role="GroupDemand" EntitySet="GroupDemands" />
+      <End Role="TypeDemand" EntitySet="TypeDemands" />
+    </AssociationSet>
+    <AssociationSet Name="TypeDemandDemandDescription" Association="ModelQA.Store.TypeDemandDemandDescription">
+      <End Role="TypeDemand" EntitySet="TypeDemands" />
+      <End Role="DemandDescription" EntitySet="DemandDescriptions" />
+    </AssociationSet>
+    <AssociationSet Name="SystemCollectionGlossarySystem" Association="ModelQA.Store.SystemCollectionGlossarySystem">
+      <End Role="SystemCollection" EntitySet="SystemCollections" />
+      <End Role="GlossarySystem" EntitySet="GlossarySystems" />
+    </AssociationSet>
+    <AssociationSet Name="DemandDescriptionUserQuestions" Association="ModelQA.Store.DemandDescriptionUserQuestions">
+      <End Role="DemandDescription" EntitySet="DemandDescriptions" />
+      <End Role="UserQuestions" EntitySet="UserQuestions" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="UserDatas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LoginUser" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PasswordUser" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="NameUser" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="RoleUser" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Hidden" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SystemCollections">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SystemName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="GeneralDescription" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserSystems">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SystemCollectionId" Type="int" Nullable="false" />
+    <Property Name="UserDataId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserQuestions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserSystemsId" Type="int" Nullable="false" />
+    <Property Name="QuestionBody" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DemandDescriptionId" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="GroupDemands">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GroupName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SystemCollectionId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TypeDemands">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TymeName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="GroupDemandId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DemandDescriptions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TypeDemandId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GlossarySystems">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="WordGlossary" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="WordValue" Type="int" Nullable="false" />
+    <Property Name="SystemCollectionId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="SystemCollectionUserSystems">
+    <End Role="SystemCollection" Type="ModelQA.Store.SystemCollections" Multiplicity="1" />
+    <End Role="UserSystems" Type="ModelQA.Store.UserSystems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SystemCollection">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserSystems">
+        <PropertyRef Name="SystemCollectionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserDataUserSystems">
+    <End Role="UserData" Type="ModelQA.Store.UserDatas" Multiplicity="1" />
+    <End Role="UserSystems" Type="ModelQA.Store.UserSystems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserData">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserSystems">
+        <PropertyRef Name="UserDataId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserSystemsUserQuestions">
+    <End Role="UserSystems" Type="ModelQA.Store.UserSystems" Multiplicity="1" />
+    <End Role="UserQuestions" Type="ModelQA.Store.UserQuestions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserSystems">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserQuestions">
+        <PropertyRef Name="UserSystemsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SystemCollectionGroupDemand">
+    <End Role="SystemCollection" Type="ModelQA.Store.SystemCollections" Multiplicity="1" />
+    <End Role="GroupDemand" Type="ModelQA.Store.GroupDemands" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SystemCollection">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="GroupDemand">
+        <PropertyRef Name="SystemCollectionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="GroupDemandTypeDemand">
+    <End Role="GroupDemand" Type="ModelQA.Store.GroupDemands" Multiplicity="1" />
+    <End Role="TypeDemand" Type="ModelQA.Store.TypeDemands" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GroupDemand">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TypeDemand">
+        <PropertyRef Name="GroupDemandId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TypeDemandDemandDescription">
+    <End Role="TypeDemand" Type="ModelQA.Store.TypeDemands" Multiplicity="1" />
+    <End Role="DemandDescription" Type="ModelQA.Store.DemandDescriptions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypeDemand">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DemandDescription">
+        <PropertyRef Name="TypeDemandId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SystemCollectionGlossarySystem">
+    <End Role="SystemCollection" Type="ModelQA.Store.SystemCollections" Multiplicity="1" />
+    <End Role="GlossarySystem" Type="ModelQA.Store.GlossarySystems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SystemCollection">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="GlossarySystem">
+        <PropertyRef Name="SystemCollectionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DemandDescriptionUserQuestions">
+    <End Role="DemandDescription" Type="ModelQA.Store.DemandDescriptions" Multiplicity="0..1" />
+    <End Role="UserQuestions" Type="ModelQA.Store.UserQuestions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DemandDescription">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserQuestions">
+        <PropertyRef Name="DemandDescriptionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ModelQA" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="ModelQAContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="UserDatas" EntityType="ModelQA.UserData" />
+          <EntitySet Name="SystemCollections" EntityType="ModelQA.SystemCollection" />
+          <EntitySet Name="UserSystems" EntityType="ModelQA.UserSystems" />
+          <EntitySet Name="UserQuestions" EntityType="ModelQA.UserQuestions" />
+          <AssociationSet Name="SystemCollectionUserSystems" Association="ModelQA.SystemCollectionUserSystems">
+            <End Role="SystemCollection" EntitySet="SystemCollections" />
+            <End Role="UserSystems" EntitySet="UserSystems" />
+          </AssociationSet>
+          <AssociationSet Name="UserDataUserSystems" Association="ModelQA.UserDataUserSystems">
+            <End Role="UserData" EntitySet="UserDatas" />
+            <End Role="UserSystems" EntitySet="UserSystems" />
+          </AssociationSet>
+          <AssociationSet Name="UserSystemsUserQuestions" Association="ModelQA.UserSystemsUserQuestions">
+            <End Role="UserSystems" EntitySet="UserSystems" />
+            <End Role="UserQuestions" EntitySet="UserQuestions" />
+          </AssociationSet>
+          <EntitySet Name="GroupDemands" EntityType="ModelQA.GroupDemand" />
+          <EntitySet Name="TypeDemands" EntityType="ModelQA.TypeDemand" />
+          <EntitySet Name="DemandDescriptions" EntityType="ModelQA.DemandDescription" />
+          <AssociationSet Name="SystemCollectionGroupDemand" Association="ModelQA.SystemCollectionGroupDemand">
+            <End Role="SystemCollection" EntitySet="SystemCollections" />
+            <End Role="GroupDemand" EntitySet="GroupDemands" />
+          </AssociationSet>
+          <AssociationSet Name="GroupDemandTypeDemand" Association="ModelQA.GroupDemandTypeDemand">
+            <End Role="GroupDemand" EntitySet="GroupDemands" />
+            <End Role="TypeDemand" EntitySet="TypeDemands" />
+          </AssociationSet>
+          <AssociationSet Name="TypeDemandDemandDescription" Association="ModelQA.TypeDemandDemandDescription">
+            <End Role="TypeDemand" EntitySet="TypeDemands" />
+            <End Role="DemandDescription" EntitySet="DemandDescriptions" />
+          </AssociationSet>
+          <EntitySet Name="GlossarySystems" EntityType="ModelQA.GlossarySystem" />
+          <AssociationSet Name="SystemCollectionGlossarySystem" Association="ModelQA.SystemCollectionGlossarySystem">
+            <End Role="SystemCollection" EntitySet="SystemCollections" />
+            <End Role="GlossarySystem" EntitySet="GlossarySystems" />
+          </AssociationSet>
+          <AssociationSet Name="DemandDescriptionUserQuestions" Association="ModelQA.DemandDescriptionUserQuestions">
+            <End Role="DemandDescription" EntitySet="DemandDescriptions" />
+            <End Role="UserQuestions" EntitySet="UserQuestions" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="UserData">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LoginUser" Type="String" Nullable="false" />
+          <Property Name="PasswordUser" Type="String" Nullable="false" />
+          <Property Name="NameUser" Type="String" Nullable="false" />
+          <Property Name="RoleUser" Type="String" Nullable="false" />
+          <NavigationProperty Name="UserSystems" Relationship="ModelQA.UserDataUserSystems" FromRole="UserData" ToRole="UserSystems" />
+          <Property Name="Hidden" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SystemCollection">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SystemName" Type="String" Nullable="false" />
+          <NavigationProperty Name="UserSystems" Relationship="ModelQA.SystemCollectionUserSystems" FromRole="SystemCollection" ToRole="UserSystems" />
+          <NavigationProperty Name="GroupDemands" Relationship="ModelQA.SystemCollectionGroupDemand" FromRole="SystemCollection" ToRole="GroupDemand" />
+          <Property Name="GeneralDescription" Type="String" Nullable="false" />
+          <NavigationProperty Name="GlossarySystems" Relationship="ModelQA.SystemCollectionGlossarySystem" FromRole="SystemCollection" ToRole="GlossarySystem" />
+        </EntityType>
+        <EntityType Name="UserSystems">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="SystemCollection" Relationship="ModelQA.SystemCollectionUserSystems" FromRole="UserSystems" ToRole="SystemCollection" />
+          <Property Name="SystemCollectionId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="UserData" Relationship="ModelQA.UserDataUserSystems" FromRole="UserSystems" ToRole="UserData" />
+          <Property Name="UserDataId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="UserQuestions" Relationship="ModelQA.UserSystemsUserQuestions" FromRole="UserSystems" ToRole="UserQuestions" />
+        </EntityType>
+        <EntityType Name="UserQuestions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="UserSystem" Relationship="ModelQA.UserSystemsUserQuestions" FromRole="UserQuestions" ToRole="UserSystems" />
+          <Property Name="UserSystemsId" Type="Int32" Nullable="false" />
+          <Property Name="QuestionBody" Type="String" Nullable="false" />
+          <NavigationProperty Name="DemandDescription" Relationship="ModelQA.DemandDescriptionUserQuestions" FromRole="UserQuestions" ToRole="DemandDescription" />
+          <Property Name="DemandDescriptionId" Type="Int32" Nullable="true" />
+        </EntityType>
+        <Association Name="SystemCollectionUserSystems">
+          <End Type="ModelQA.SystemCollection" Role="SystemCollection" Multiplicity="1" />
+          <End Type="ModelQA.UserSystems" Role="UserSystems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SystemCollection">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserSystems">
+              <PropertyRef Name="SystemCollectionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserDataUserSystems">
+          <End Type="ModelQA.UserData" Role="UserData" Multiplicity="1" />
+          <End Type="ModelQA.UserSystems" Role="UserSystems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserData">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserSystems">
+              <PropertyRef Name="UserDataId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserSystemsUserQuestions">
+          <End Type="ModelQA.UserSystems" Role="UserSystems" Multiplicity="1" />
+          <End Type="ModelQA.UserQuestions" Role="UserQuestions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserSystems">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserQuestions">
+              <PropertyRef Name="UserSystemsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="GroupDemand">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupName" Type="String" Nullable="false" />
+          <NavigationProperty Name="SystemCollection" Relationship="ModelQA.SystemCollectionGroupDemand" FromRole="GroupDemand" ToRole="SystemCollection" />
+          <Property Name="SystemCollectionId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TypeDemands" Relationship="ModelQA.GroupDemandTypeDemand" FromRole="GroupDemand" ToRole="TypeDemand" />
+        </EntityType>
+        <EntityType Name="TypeDemand">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TymeName" Type="String" Nullable="false" />
+          <NavigationProperty Name="GroupDemand" Relationship="ModelQA.GroupDemandTypeDemand" FromRole="TypeDemand" ToRole="GroupDemand" />
+          <Property Name="GroupDemandId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DemandDescriptions" Relationship="ModelQA.TypeDemandDemandDescription" FromRole="TypeDemand" ToRole="DemandDescription" />
+        </EntityType>
+        <EntityType Name="DemandDescription">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <NavigationProperty Name="TypeDemand" Relationship="ModelQA.TypeDemandDemandDescription" FromRole="DemandDescription" ToRole="TypeDemand" />
+          <Property Name="TypeDemandId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="UserQuestions" Relationship="ModelQA.DemandDescriptionUserQuestions" FromRole="DemandDescription" ToRole="UserQuestions" />
+        </EntityType>
+        <Association Name="SystemCollectionGroupDemand">
+          <End Type="ModelQA.SystemCollection" Role="SystemCollection" Multiplicity="1" />
+          <End Type="ModelQA.GroupDemand" Role="GroupDemand" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SystemCollection">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GroupDemand">
+              <PropertyRef Name="SystemCollectionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="GroupDemandTypeDemand">
+          <End Type="ModelQA.GroupDemand" Role="GroupDemand" Multiplicity="1" />
+          <End Type="ModelQA.TypeDemand" Role="TypeDemand" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupDemand">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TypeDemand">
+              <PropertyRef Name="GroupDemandId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TypeDemandDemandDescription">
+          <End Type="ModelQA.TypeDemand" Role="TypeDemand" Multiplicity="1" />
+          <End Type="ModelQA.DemandDescription" Role="DemandDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeDemand">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DemandDescription">
+              <PropertyRef Name="TypeDemandId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="GlossarySystem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WordGlossary" Type="String" Nullable="false" />
+          <Property Name="WordValue" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SystemCollection" Relationship="ModelQA.SystemCollectionGlossarySystem" FromRole="GlossarySystem" ToRole="SystemCollection" />
+          <Property Name="SystemCollectionId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="SystemCollectionGlossarySystem">
+          <End Type="ModelQA.SystemCollection" Role="SystemCollection" Multiplicity="1" />
+          <End Type="ModelQA.GlossarySystem" Role="GlossarySystem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SystemCollection">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GlossarySystem">
+              <PropertyRef Name="SystemCollectionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DemandDescriptionUserQuestions">
+          <End Type="ModelQA.DemandDescription" Role="DemandDescription" Multiplicity="0..1" />
+          <End Type="ModelQA.UserQuestions" Role="UserQuestions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DemandDescription">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserQuestions">
+              <PropertyRef Name="DemandDescriptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelQAStoreContainer" CdmEntityContainer="ModelQAContainer">
+    <EntitySetMapping Name="UserDatas">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelQA.UserData)">
+        <MappingFragment StoreEntitySet="UserDatas">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="LoginUser" ColumnName="LoginUser" />
+          <ScalarProperty Name="PasswordUser" ColumnName="PasswordUser" />
+          <ScalarProperty Name="NameUser" ColumnName="NameUser" />
+          <ScalarProperty Name="RoleUser" ColumnName="RoleUser" />
+          <ScalarProperty Name="Hidden" ColumnName="Hidden" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SystemCollections">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelQA.SystemCollection)">
+        <MappingFragment StoreEntitySet="SystemCollections">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SystemName" ColumnName="SystemName" />
+          <ScalarProperty Name="GeneralDescription" ColumnName="GeneralDescription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserSystems">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelQA.UserSystems)">
+        <MappingFragment StoreEntitySet="UserSystems">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SystemCollectionId" ColumnName="SystemCollectionId" />
+          <ScalarProperty Name="UserDataId" ColumnName="UserDataId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserQuestions">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelQA.UserQuestions)">
+        <MappingFragment StoreEntitySet="UserQuestions">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserSystemsId" ColumnName="UserSystemsId" />
+          <ScalarProperty Name="QuestionBody" ColumnName="QuestionBody" />
+          <ScalarProperty Name="DemandDescriptionId" ColumnName="DemandDescriptionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GroupDemands">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelQA.GroupDemand)">
+        <MappingFragment StoreEntitySet="GroupDemands">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+          <ScalarProperty Name="SystemCollectionId" ColumnName="SystemCollectionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TypeDemands">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelQA.TypeDemand)">
+        <MappingFragment StoreEntitySet="TypeDemands">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TymeName" ColumnName="TymeName" />
+          <ScalarProperty Name="GroupDemandId" ColumnName="GroupDemandId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DemandDescriptions">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelQA.DemandDescription)">
+        <MappingFragment StoreEntitySet="DemandDescriptions">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="TypeDemandId" ColumnName="TypeDemandId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GlossarySystems">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelQA.GlossarySystem)">
+        <MappingFragment StoreEntitySet="GlossarySystems">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="WordGlossary" ColumnName="WordGlossary" />
+          <ScalarProperty Name="WordValue" ColumnName="WordValue" />
+          <ScalarProperty Name="SystemCollectionId" ColumnName="SystemCollectionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

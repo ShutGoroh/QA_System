@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c4faa30cb7c848dab30e5ddd45744beb" Name="Diagram1" >
+        <EntityTypeShape EntityType="ModelQA.UserData" Width="1.5" PointX="10.125" PointY="1.75" />
+        <EntityTypeShape EntityType="ModelQA.SystemCollection" Width="1.5" PointX="6" PointY="1.75" />
+        <EntityTypeShape EntityType="ModelQA.UserSystems" Width="1.5" PointX="8" PointY="1.75" />
+        <EntityTypeShape EntityType="ModelQA.UserQuestions" Width="1.5" PointX="10.125" PointY="4.625" />
+        <AssociationConnector Association="ModelQA.SystemCollectionUserSystems" />
+        <AssociationConnector Association="ModelQA.UserDataUserSystems" />
+        <AssociationConnector Association="ModelQA.UserSystemsUserQuestions" />
+        <EntityTypeShape EntityType="ModelQA.GroupDemand" Width="1.5" PointX="5.875" PointY="4.375" />
+        <EntityTypeShape EntityType="ModelQA.TypeDemand" Width="1.5" PointX="6" PointY="6.875" />
+        <EntityTypeShape EntityType="ModelQA.DemandDescription" Width="1.5" PointX="8.125" PointY="6.875" />
+        <AssociationConnector Association="ModelQA.SystemCollectionGroupDemand" />
+        <AssociationConnector Association="ModelQA.GroupDemandTypeDemand" />
+        <AssociationConnector Association="ModelQA.TypeDemandDemandDescription" />
+        <EntityTypeShape EntityType="ModelQA.GlossarySystem" Width="1.5" PointX="8" PointY="4.625" />
+        <AssociationConnector Association="ModelQA.SystemCollectionGlossarySystem" />
+        <AssociationConnector Association="ModelQA.DemandDescriptionUserQuestions" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
